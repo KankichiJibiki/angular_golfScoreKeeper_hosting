@@ -1,0 +1,4 @@
+<div class="w-10 text-center m-0" [ngClass]="{'text-green-600': parScore == 'under', 'text-red-600': parScore == 'over'}">
+    <input type="number" *ngIf="!isDisabled" (blur) ="toggleInput(); updateTotal()" [(ngModel)]="inputValue" class="m-0 w-10 bg-green-50">
+    <div *ngIf="isDisabled" (dblclick)="toggleInput()">{{ playerScore.score }}</div>
+</div>

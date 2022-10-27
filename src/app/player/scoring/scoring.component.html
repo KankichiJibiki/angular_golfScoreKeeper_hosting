@@ -1,0 +1,50 @@
+<div class="my-4">
+    <table class="mx-auto border border-collapse border-slate-500 p-2 my-4">
+        <tbody >
+            <tr>
+                <th class="border border-slate-400 p-2">Hole Number</th>
+                <th 
+                    class="border border-slate-400 p-2"
+                    *ngFor="let hole of createHoleTable()"
+                >
+                    {{ hole }}      
+                </th>
+
+                <th class="border border-slate-400 p-2">Total</th>
+                <th class="border border-slate-400 p-2">Under/Over Par</th>
+            </tr>
+            <tr>
+                <th class="border border-slate-400 p-2">Par For Hole</th>
+                <td 
+                    class="border border-slate-400 p-1"
+                    *ngFor="let hole of createHoleTable();"
+                >
+                    <app-par (parScoreEmitter)="updateTotal($event)" [order]="hole"></app-par>
+                </td>
+                <th class="border border-slate-400 p-2">{{ parTotal }}</th>
+                <th class="border border-slate-400 p-2">0</th>
+            </tr>
+            <tr>
+                <th class="border border-slate-400 p-2">{{ form.player }}</th>
+                <td 
+                    class="border border-slate-400 p-1 m-0"
+                    *ngFor="let hole of createHoleTable()"
+                >
+                    <app-player-score (playerEmitter)="updateTotal($event)" [order]="hole"
+                    >
+                    </app-player-score>
+                </td>
+                <th class="border border-slate-400 p-2">{{ playerTotal }}</th>
+                <th class="border border-slate-400 p-2" [ngClass]="{'bg-green-400': playerResult < 0, 'bg-red-400': playerResult >= 1}">
+                    {{ playerResult }}
+                </th>
+            </tr>
+        </tbody>
+    </table>
+    <ng-container class="my-4 p-2" *ngIf="isFinished">
+            <div class="flex justify-center">
+                <div class="p-2 text-2xl">You have compleated the course.</div>
+                <button class="text-white bg-green-400 border rounded-lg p-2" (click)="resetScore()">Reset Scoring grid</button>
+            </div>
+    </ng-container>
+</div>
